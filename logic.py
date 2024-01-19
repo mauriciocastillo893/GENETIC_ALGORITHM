@@ -6,10 +6,10 @@ import logic_generations
 my_dictionary = {}
 generations = {}
 
-def reception_of_values(initial_people, max_people, variable_a, variable_b, prob_of_crossing, prob_mut_ind, prob_mut_gen, function_entry, delta_x, iterator_entry):
-    set_dictionary(initial_people, max_people, variable_a, variable_b, prob_of_crossing, prob_mut_ind, prob_mut_gen, function_entry, delta_x, iterator_entry)
+def reception_of_values(initial_people, max_people, variable_a, variable_b, prob_of_crossing, prob_mut_ind, prob_mut_gen, function_entry, delta_x, find_x_entry, iterator_entry):
+    set_dictionary(initial_people, max_people, variable_a, variable_b, prob_of_crossing, prob_mut_ind, prob_mut_gen, function_entry, delta_x, find_x_entry, iterator_entry)
 
-def set_dictionary(initial_people, max_people, variable_a, variable_b, prob_of_crossing, prob_mut_ind, prob_mut_gen, function_entry, delta_x, iterator_entry):
+def set_dictionary(initial_people, max_people, variable_a, variable_b, prob_of_crossing, prob_mut_ind, prob_mut_gen, function_entry, delta_x, find_x_entry, iterator_entry):
     initial_people_value = initial_people.get()
     max_people_value = max_people.get()
     variable_a_value = variable_a.get()
@@ -19,13 +19,14 @@ def set_dictionary(initial_people, max_people, variable_a, variable_b, prob_of_c
     prob_mut_gen_value = prob_mut_gen.get()
     function_value = function_entry.get()
     delta_x_value = delta_x.get()
+    find_x_entry_value = find_x_entry.get()
     iterator_value = iterator_entry.get()
     
     if (initial_people_value == '' or max_people_value == '' or
             variable_a_value == '' or variable_b_value == '' or
             prob_of_crossing_value == '' or prob_mut_ind_value == '' or
             prob_mut_gen_value == '' or function_value == '' or delta_x_value == '' or
-            iterator_value == ''):
+            find_x_entry_value == '' or iterator_value == ''):
         print("Todos los campos deben ser diferentes de vacío. Por favor, complete todos los campos correctamente.")
         return
     else:
@@ -38,6 +39,7 @@ def set_dictionary(initial_people, max_people, variable_a, variable_b, prob_of_c
         my_dictionary["prob_mut_gen"] = prob_mut_gen_value
         my_dictionary["function_entry"] = function_value
         my_dictionary["delta_x"] = delta_x_value
+        my_dictionary["find_x_by"] = find_x_entry_value
         my_dictionary["iterator_entry"] = iterator_value
         process_data()
         # print("My dictionary", my_dictionary)
@@ -58,6 +60,7 @@ def print_values():
     Prob. de mut. gen: {my_dictionary["prob_mut_gen"] or 0.35},
     f(x): {my_dictionary["function_entry"] or "x^2"},
     Resolución: {my_dictionary["delta_x"] or 0.06},
+    Encontrar (x) por: {my_dictionary["find_x_by"] or 'Minimización'},
     Iteraciones: {my_dictionary["iterator_entry"] or 10},
     """)
 

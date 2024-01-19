@@ -91,10 +91,16 @@ def desktop():
     delta_x = customtkinter.CTkEntry(master=frame3, placeholder_text="2")
     delta_x.grid(row=6, column=1, pady=(10, 0), padx=(25, 0)) 
 
+    label_find_x_by = customtkinter.CTkLabel(master=frame3, text="HALLAR (X) POR", font=("Inter", 12, "bold"))
+    label_find_x_by.grid(row=7, column=0, pady=(10, 0), padx=(25, 0)) 
+    find_x_entry = customtkinter.CTkComboBox(master=frame3, values=["Minimización", "Maximización"])
+    find_x_entry.grid(row=7, column=1, pady=(10, 0), padx=(25, 0)) 
+
+    
     label_iterator = customtkinter.CTkLabel(master=frame3, text="NÚMERO DE ITERACIONES", font=("Inter", 12, "bold"))
-    label_iterator.grid(row=7, column=0, pady=(10, 20), padx=(25, 0)) 
-    iterator_entry = customtkinter.CTkComboBox(master=frame3, values=["Minimización", "Maximización"])
-    iterator_entry.grid(row=7, column=1, pady=(10, 20), padx=(25, 0)) 
+    label_iterator.grid(row=8, column=0, pady=(10, 20), padx=(25, 0)) 
+    iterator_entry = customtkinter.CTkEntry(master=frame3, placeholder_text="2")
+    iterator_entry.grid(row=8, column=1, pady=(10, 20), padx=(25, 0)) 
 
     button = customtkinter.CTkButton(master=app, text="INICIAR", command=lambda: 
                                     logic.reception_of_values(initial_people, 
@@ -106,8 +112,9 @@ def desktop():
                                                     prob_mut_gen, 
                                                     function_entry, 
                                                     delta_x, 
+                                                    find_x_entry,
                                                     iterator_entry))
-    button.place(relx=0.5, rely=0.85, anchor=tkinter.CENTER)
+    button.place(relx=0.5, rely=0.90, anchor=tkinter.CENTER)
 
 
 def change_window():
@@ -135,7 +142,7 @@ class NuevaVentana:
         app.deiconify()
 
 btn_change_window = customtkinter.CTkButton(master=app, text="Cambiar Ventana", command=change_window)
-btn_change_window.place(relx=0.5, rely=0.9, anchor=tkinter.CENTER)
+btn_change_window.place(relx=0.5, rely=0.95, anchor=tkinter.CENTER)
 
 desktop()
 app.mainloop()
