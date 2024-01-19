@@ -1,6 +1,7 @@
 import sympy as sp
 import random
 import math
+import logic_generations
 
 my_dictionary = {}
 generations = {}
@@ -39,11 +40,11 @@ def set_dictionary(initial_people, max_people, variable_a, variable_b, prob_of_c
         my_dictionary["delta_x"] = delta_x_value
         my_dictionary["iterator_entry"] = iterator_value
         process_data()
-        print("My dictionary", my_dictionary)
+        # print("My dictionary", my_dictionary)
 
 def process_data():
     calculate_range(my_dictionary["variable_a"], my_dictionary["variable_b"])
-    generate_first_generation()
+    generate_base_generation()
     # print_values()
 
 def print_values():
@@ -62,9 +63,9 @@ def print_values():
 
 def calculate_range(variable_a, variable_b):
     my_dictionary["range"] = float(variable_b) - float(variable_a)
-    print("Range:", float(variable_b) - float(variable_a))
+    # print("Range:", float(variable_b) - float(variable_a))
 
-def generate_first_generation():
+def generate_base_generation():
     generate_jumps()
     generate_points()
     generate_bits()
@@ -82,56 +83,47 @@ def generate_first_generation():
     # Generar números aleatorios y convertirlos a binario
     bits_required = int(my_dictionary["bits_required"])
     max_value = 2 ** bits_required - 1  # Max value for the specified number of bits
-    numeros_aleatorios = [random.randint(1, max_value) for _ in range(amount_of_numbers)]
-    numeros_binarios = [format(num, f"0{bits_required}b") for num in numeros_aleatorios]
-    print("Numeros aleatorios:", numeros_aleatorios)
+    random_numbers = [random.randint(1, max_value) for _ in range(amount_of_numbers)]
+    binary_numbers = [format(num, f"0{bits_required}b") for num in random_numbers]
     # Generar valores de x
-    valores_x = generar_x(a, delta_x, numeros_aleatorios)
+    values_x = generate_x(a, delta_x, random_numbers)
 
     # Aplicar la función y a los valores de x
-    valores_y = aplicar_funcion_y(funcion_y_sympy, valores_x)
+    values_y = apply_function_y(funcion_y_sympy, values_x)
 
     # Construir el diccionario final
     data = {
         "Id": list(range(1, amount_of_numbers + 1)),
-        "Numero": numeros_aleatorios,
-        "Binario": numeros_binarios,
-        "X": valores_x,
-        "f(x)": valores_y
+        "Numero": random_numbers,
+        "Binario": binary_numbers,
+        "X": values_x,
+        "f(x)": values_y
     }
 
-    print("Data generated:", data)
+    # print("Data generated:", data)
+    logic_generations.receive_base_generation(data, my_dictionary)
 
 def generate_jumps():
     range_data = float(my_dictionary["range"])
     delta_x_data = float(my_dictionary["delta_x"])
     result = range_data/delta_x_data
-    print("Jump numbers:", result)
-    my_dictionary["jump_numbers"] = result
+    # print("Jump numbers:", round(result, 4))
+    my_dictionary["jump_numbers"] = round(result, 4)
 
 def generate_points():
     points_data_pre = float(my_dictionary["jump_numbers"])
     points_data = points_data_pre + 1
-    print("Point numbers:", points_data)
-    my_dictionary["points_numbers"] = points_data
+    # print("Point numbers:", round(points_data, 4))
+    my_dictionary["points_numbers"] = round(points_data, 4)
 
 def generate_bits():
     points_data = float(my_dictionary["points_numbers"])
     bits_required = math.ceil(math.log2(points_data))
     my_dictionary["bits_required"] = bits_required
-    print("Bits required:", bits_required)
+    # print("Bits required:", bits_required)
 
-def generar_x(a, delta_x, cantidad):
-    print("a:", a, "delta_x:", delta_x, "cantidad:", cantidad)
-    return [round(a + i * delta_x, 4) for i in cantidad]
+def generate_x(a, delta_x, random_numbers):
+    return [round(a + i * delta_x, 4) for i in random_numbers]
 
-def aplicar_funcion_y(funcion_y, x_valores):
-    return [round(funcion_y.subs('x', x), 4) for x in x_valores]
-
-def evaluate_expresion(expresion, valor_x):
-    x = sp.symbols('x')
-    try:
-        resultado = sp.sympify(expresion).subs(x, valor_x)
-        print("Resultado de f(x): ", resultado)
-    except (sp.SympifyError, TypeError):
-        return "Error al evaluar la expresión"
+def apply_function_y(funcion_y, values_x):
+    return [round(funcion_y.subs('x', x), 4) for x in values_x]

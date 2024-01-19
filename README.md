@@ -13,3 +13,6 @@ This repository you will look at how a genetic algorithm works. Technologies use
 
 **Dependencies downloaded (to install using pip install <dependency>):**
 `customtkinder`
+`pandas`
+`openpyxl`
+`xlsxwriter`
