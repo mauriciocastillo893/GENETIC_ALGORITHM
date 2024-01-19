@@ -9,3 +9,7 @@ This repository you will look at how a genetic algorithm works. Technologies use
 **Now, whatever you want to run your application, you first need to activate the virtual environment because some dependencies into your software are required to start or run the code.**
 *To activate:* `<folder_name>\Scripts\activate`
 *To deactivate:* `deactivate`
+
+
+**Dependencies downloaded (to install using pip install <dependency>):**
+`customtkinder`
