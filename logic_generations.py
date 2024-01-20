@@ -6,24 +6,51 @@ from Structure.generation import Generation
 
 my_base_dictionary = {}
 base_data = {}
+all_generations = []
 
 def receive_base_generation(data, my_dictionary):
     global my_base_dictionary, base_data
-    print("I recive this \ndata:", data, "\ndictionaty:", my_dictionary)
+    print("I receive this \ndata:", data, "\ndictionaty:", my_dictionary)
     my_base_dictionary = my_dictionary
     base_data = data
-    form_duos()
+    form_duos("", 0)
     create_excel()
 
-def form_duos():
-    ordened_list = sorted(base_data["Numero"])
+def form_duos(data, generation_id):
+    print("Data length", len(data)) # Data expect an array with elements to sort as below when "base_data" is sorted
+    # temp_key_value = {}
+    # for i, j in zip(base_data["Id"], base_data["Numero"]):
+    #     temp_key_value[i] = j
+    # print("temp_key_value:", temp_key_value)
+    if(len(data) == 0):
+        ordened_list = sorted(base_data["Numero"])
+    else:
+        ordened_list = sorted(data)
     half_length = len(ordened_list) // 2
     if(my_base_dictionary["find_x_by"] == "Minimización"):
         result = ordened_list[:half_length]
+        the_rest = ordened_list[half_length:]
     else:
         result = ordened_list[half_length:]
+        the_rest = ordened_list[:half_length]
     print("Betters by", my_base_dictionary["find_x_by"], ":", result)
-
+    print("The rest by", my_base_dictionary["find_x_by"], ":", the_rest)
+    generation_at_this_moment = "generation0"
+    generation_by_cycle = Generation(
+        generation_at_this_moment,
+        numbers=[],  # Agrega listas vacías para 'numbers', 'binary', 'x', 'fx' y 'formed_couples'
+        binary=[],
+        x=[],
+        fx=[],
+        the_best_data=result,
+        the_rest_data=the_rest,
+        formed_couples=[],
+        id_formed_couples=[]
+    )
+    all_generations.append(generation_by_cycle)
+    print("All generations created:", all_generations)
+    for generation in all_generations:
+        print(generation)
 def create_excel():
     # Crear un DataFrame de pandas a partir del diccionario base_data
     df = pd.DataFrame(base_data)
