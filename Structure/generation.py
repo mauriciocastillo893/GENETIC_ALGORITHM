@@ -1,20 +1,20 @@
 class Generation:
     all_generations = []
 
-    def __init__(self, id, numbers, binary, x, fx, the_best_data, the_rest_data, formed_couples, id_formed_couples):
+    def __init__(self, id, numbers, binary, bits_required, x, fx, the_best_data, the_rest_data, formed_couples, chance_of_mutating, binary_formed_couples):
         self.id = id
         self.data = {
-            "Id": numbers,
             "Numbers": numbers,
-            "Binary": binary,
+            "Binary Numbers": binary,
+            "Bits Required": bits_required,
             "X": x,
             "f(x)": fx,
             "Betters": the_best_data,
             "The rest": the_rest_data,
             "Formed couples": formed_couples,
-            "Id of formed couples": id_formed_couples,
+            "Chance of mutating": chance_of_mutating,
+            "Binary of formed couples": binary_formed_couples,
         }
-        all_generations.append(generation_by_cycle)
 
 
     def __str__(self):
@@ -32,3 +32,9 @@ class Generation:
 
     def add_formed_couple(self, new_value):
         self.data["Formed couples"].append(new_value)
+
+    def getID(self):
+        return self.id
+    
+    def getData(self):
+        return self.data

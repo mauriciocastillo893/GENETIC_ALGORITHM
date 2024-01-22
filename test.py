@@ -56,13 +56,6 @@ def desktop():
     label_prob_title = customtkinter.CTkLabel(master=frame3, text="PROBABILIDADES", font=("Inter", 14, "bold"))
     label_prob_title.grid(row=0, column=0, columnspan=3 ,pady=(10, 0), padx=(25, 0)) 
 
-    label_prop_crossing = customtkinter.CTkLabel(master=frame3, text="PROBABILIDADAD DE CRUZA", font=("Inter", 12, "bold"))
-    label_prop_crossing.grid(row=1, column=0, pady=(10, 0), padx=(25, 0)) 
-    prob_of_crossing = customtkinter.CTkEntry(master=frame3, placeholder_text="1")
-    prob_of_crossing.grid(row=1, column=1, pady=(10, 0), padx=(25, 0)) 
-    percent1 = customtkinter.CTkLabel(master=frame3, text="%", font=("Inter", 14, "bold"))
-    percent1.grid(row=1, column=2 ,pady=(10, 0))
-
     label_prob_mut_ind = customtkinter.CTkLabel(master=frame3, text="PROBABILIDAD DE MUTACIÓN DEL INDIVIDUO", font=("Inter", 12, "bold"))
     label_prob_mut_ind.grid(row=2, column=0, pady=(10, 0), padx=(25, 0)) 
     prob_mut_ind = customtkinter.CTkEntry(master=frame3, placeholder_text="2")
@@ -107,7 +100,6 @@ def desktop():
                                                     max_people, 
                                                     variable_a, 
                                                     variable_b, 
-                                                    prob_of_crossing, 
                                                     prob_mut_ind, 
                                                     prob_mut_gen, 
                                                     function_entry, 
